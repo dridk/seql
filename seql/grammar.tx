@@ -1,0 +1,47 @@
+
+
+// main query
+Query:
+	'SELECT' field=ID 'WITH' events+=Event
+;
+
+
+// Describe event 
+Event:
+	count=EventCount 'EVENT' 'FROM' domain=ID
+	( direction=IntervalDirection interval=Interval)?
+	('BETWEEN' start_date=Date 'AND' end_date=Date)?
+	'WHERE' condition=WhereExpression
+;
+
+// describe where expression 
+WhereExpression:
+ op=WhereOperand (op=BoolOperator op=WhereOperand)*
+;
+
+
+WhereOperand:
+op= WhereTerm| ('(' op=WhereExpression')')
+;
+
+WhereTerm:
+    field=ID op=ComparaisonOperator val=Value
+;
+
+
+// Terminaux 
+EventCount: NUMBER|'ANY' ;
+
+
+Interval:number=NUMBER unite=IntervalUnite;
+IntervalUnite:('YEAR'| 'MONTH'|'WEEK'| 'DAY'| 'HOUR'| 'MINUTE'| 'SECOND'| 'MILLISECOND');
+IntervalDirection:'BEFORE'|'AFTER';
+Date: NUMBER '/' NUMBER '/' NUMBER;
+Value: (NUMBER|STRING|BOOL|Tuple);
+BoolOperator: "AND"|"OR";
+// WARNING : ORDER IS IMPORTANT ! IS NOT BEFORE IS ..
+ComparaisonOperator: />=|<=|!=|=|>|<|IN|LIKE/;
+Tuple: '(' items+=Value[','] ')';
+Comment:
+  /\/\/.*$/
+;
