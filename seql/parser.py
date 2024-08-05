@@ -10,6 +10,9 @@ MAP_OPERATOR = {"AND": "$and", "OR": "$or"}
 
 def _parse_where_expression(expression) -> dict:
 
+    if expression is None:
+        return None
+
     if len(expression.op) == 3:
         operator = MAP_OPERATOR.get(expression.op[1], "$and")
 
@@ -31,6 +34,9 @@ def _parse_where_expression(expression) -> dict:
 
 
 def parse(query: str) -> dict:
+    """
+    From a SEQL query, generate a python object
+    """
     metamodel = metamodel_from_file(GRAMMAR_PATH)
     metamodel.register_obj_processors({"Tuple": lambda x: x.items})
     model = metamodel.model_from_str(query)
@@ -51,8 +57,8 @@ def parse(query: str) -> dict:
                 "direction": event.direction,
                 "start_date": event.start_date,
                 "end_date": event.end_date,
-                "interval": event.interval.number,
-                "unite": event.interval.unite,
+                "interval": None if event.interval is None else event.interval.number,
+                "unite": None if event.interval is None else event.interval.unite,
                 "where": where,
             }
         )
@@ -68,4 +74,3 @@ ANY EVENT FROM pmsi AFTER 3 DAY WHERE code IN ('Z50','252')
 ANY EVENT FROM drugs AFTER 5 DAY WHERE code = 'ATC54'
     
 """
-print(json.dumps(parse(query)))
