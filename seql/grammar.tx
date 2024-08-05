@@ -2,7 +2,7 @@
 
 // main query
 Query:
-	'SELECT' field=ID 'WITH' events+=Event
+	'SELECT' fields+=ID[','] 'WITH' events+=Event
 ;
 
 

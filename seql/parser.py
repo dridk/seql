@@ -43,7 +43,7 @@ def parse(query: str) -> dict:
 
     results = {}
 
-    results["field"] = model.field
+    results["fields"] = model.fields
     events = []
     for event in model.events:
 

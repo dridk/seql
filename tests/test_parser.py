@@ -5,7 +5,7 @@ test_cases = [
     (
         "SELECT IPP WITH 3 EVENT FROM biologie AFTER 5 DAY WHERE code = 'ATC'",
         {
-            "field": "IPP",
+            "fields": ["IPP"],
             "events": [
                 {
                     "count": 3,
@@ -23,7 +23,7 @@ test_cases = [
     (
         "SELECT IPP WITH 3 EVENT FROM biologie  WHERE code = 'ATC'",
         {
-            "field": "IPP",
+            "fields": ["IPP"],
             "events": [
                 {
                     "count": 3,
@@ -41,7 +41,7 @@ test_cases = [
     (
         "SELECT IPP WITH 3 EVENT FROM biologie AFTER 5 DAY  WHERE code = 'ATC'",
         {
-            "field": "IPP",
+            "fields": ["IPP"],
             "events": [
                 {
                     "count": 3,
