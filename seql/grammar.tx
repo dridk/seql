@@ -9,9 +9,9 @@ Query:
 // Describe event 
 Event:
 	count=EventCount 'EVENT' 'FROM' domain=ID
-	( direction=IntervalDirection interval=Interval)?
+	(direction=IntervalDirection interval=Interval)?
 	('BETWEEN' start_date=Date 'AND' end_date=Date)?
-	'WHERE' condition=WhereExpression
+	('WHERE' condition=WhereExpression)?
 ;
 
 // describe where expression 
