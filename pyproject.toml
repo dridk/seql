@@ -4,8 +4,16 @@ requires = ["hatchling"]
 build-backend="hatchling.build"
 
 [project]
-
 name="seql"
-
 version = "0.0.1"
 description="A DSL to search for events"
+
+dependencies = [
+  "textx"
+]
+
+[project.optional-dependencies]
+tests = [
+  "pytest","duckdb"
+]
+
