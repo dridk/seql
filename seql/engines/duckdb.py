@@ -77,7 +77,7 @@ def from_obj(obj: dict, table_name: str = "events") -> str:
     if len(events) > 1:
         for index, event in enumerate(events[1:]):
             index += 1
-            query += f"\nJOIN event{index} ON "
+            query += f"\nINNER JOIN event{index} ON "
             conditions = []
             for field in obj["fields"]:
                 conditions.append(f"event{index}.{field} = event0.{field}")
