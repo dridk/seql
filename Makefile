@@ -14,3 +14,6 @@ view2:
 
 test:
 	python -m pytest --no-header -vv
+
+main:
+	python -m seql "SELECT IPP WITH 1 EVENT FROM biologie WHERE code = 'fer' AND value > 10"
