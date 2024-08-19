@@ -23,7 +23,7 @@ def test_transpile():
 event0 AS (SELECT * FROM events WHERE domain ='biologie' AND (code = 'ferritine' AND (value > 10 OR value < 100)))
 event1 AS (SELECT * FROM events WHERE domain ='pmsi' AND code = 'ATC')
 SELECT * FROM event0
-JOIN event1 ON event1.ID = event0.ID AND event1.ts > event0.ts + INTERVAL 3 DAY
+INNER JOIN event1 ON event1.ID = event0.ID AND event1.ts > event0.ts + INTERVAL 3 DAY
 
 """
 

@@ -37,7 +37,7 @@ def parse(query: str) -> dict:
     """
     From a SEQL query, generate a python object
     """
-    metamodel = metamodel_from_file(GRAMMAR_PATH)
+    metamodel = metamodel_from_file(GRAMMAR_PATH, ignore_case=True)
     metamodel.register_obj_processors({"Tuple": lambda x: x.items})
     model = metamodel.model_from_str(query)
 
