@@ -1,7 +1,7 @@
 import pytest
 import seql
 
-ENGINES = ["duckdb"]
+ENGINES = ["json", "duckdb"]
 
 
 @pytest.mark.parametrize("engine", ENGINES)

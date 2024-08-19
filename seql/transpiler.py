@@ -1,8 +1,10 @@
+import json
 import os
-from .engines import duckdb, sqlite
 import pkgutil
 import importlib
 from typing import Callable
+from .engines import duckdb, sqlite
+from .parser import parse
 
 
 class TranspilerError(Exception):
@@ -29,10 +31,11 @@ def _get_engine_fct(engine: str, fct_name: str) -> Callable:
     return fct
 
 
-def schema(fields: list[str], engine: str = "duckdb") -> str:
+def schema(fields: list[str], table_name: str = "events", *, engine: str = "json") -> str:
     """
     Return table schema for the specific engine
     """
+
     if engine not in _get_engines():
         raise TranspilerError(f"engine {engine} does not exists")
 
@@ -40,14 +43,15 @@ def schema(fields: list[str], engine: str = "duckdb") -> str:
     if not callable(schema):
         raise TranspilerError(f"Cannot create schema function from engine {engine}")
 
-    return schema_fct()
+    return schema_fct(fields, table_name)
 
 
-def transpile(query: str, engine: str = "duckdb") -> str:
+def transpile(query: str, *, engine: str = "json") -> str:
     """
     Create engine Query from a SEQL Query
 
     """
+
     if engine not in _get_engines():
         raise TranspilerError(f"engine {engine} does not exists")
 
